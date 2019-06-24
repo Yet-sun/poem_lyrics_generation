@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <title>log</title>
+    <link rel="stylesheet" href="{% static 'css/log.css' %}" />
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}" ></script>
+    <!--<link rel="stylesheet" href="css/main.css" />-->
+</head>
+<body>
+<header>
+    <div class="menu">
+        <a href="/poem_app/main/">返回</a>
+    </div>
+</header>
+
+
+<!--顶部图-->
+<div class="bg" >
+    <div class="poem_div" style="padding-left: 30px;padding-top: 30px;">
+        {% for item in data%}
+            {% for info in item%}
+        <p style="color:#fff; ">{{ info }}</p>
+                {% endfor %}
+        {% endfor %}
+    </div>
+</div>
+<!--</div>-->
+
+</body>
+</html>

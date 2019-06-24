@@ -1,0 +1,41 @@
+.menu {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    /*font-size: 20px;*/
+    padding: 0;
+    height: 50px;
+    /*padding-left: 80%;*/
+    /*background-color: #00a2ca;*/
+    background-color:rgba(0, 0, 0, 0.3);
+}
+
+.menu a	{
+    display: block;
+    height: 50px;
+    font-family: "微软雅黑","Microsoft Yahei","Hiragino Sans GB",tahoma,arial,"宋体" ;
+    font-size: 15px;
+    text-align: center;
+    line-height:50px ;
+    text-decoration: none;
+    color: #fff;
+    float: right;
+    margin-right: 150px;
+}
+
+
+.bg{
+    top:0;
+    height: 850px;
+    background: gainsboro;
+    background: url(../img/main.jpg) no-repeat center;
+    padding-top: 100px;
+}
+
+.poem_div{
+    width: 70%;
+    margin-left: 15%;
+    background-color:rgba(0, 0, 0, 0.4);
+    padding-left: 30px;
+    padding-top: 30px;
+}

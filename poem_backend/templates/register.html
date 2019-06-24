@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>注册</title>
+		<link rel="stylesheet" href="{% static 'css/reset.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/common.css' %}" />
+        <script type="text/javascript" src="{% static 'js/jquery.min.js' %}" ></script>
+	</head>
+	<body>
+		<div class="wrap login_wrap"  style="background-image: url({% static 'img/bg6.jpg'%})">
+			<div class="content">
+				<!--<div class="logo"></div>-->
+				<div class="login_box">
+
+					<div class="login_form">
+						<div class="login_title">
+							注册
+						</div>
+						<form action="" method="post">
+                            {%  csrf_token %}
+                            <div class="form_check_ipt">
+                                <div style="text-align: center;color: red;font-size: 15px;">{{ error }}</div>
+                            </div>
+
+                            <div style="width: 300px;height: 40px;border:0" class="form_check_ipt"  >
+                                <div class="" style="line-height: 40px;border: solid 1px #CCCCCC;height: 38px;width: 170px;float: left">
+                                    <input style="line-height: 35px;width: 160px;border: 0" type="text" name="valid_code" id="valid_code" placeholder="请输入手机号">
+                                </div>
+
+                                <div style="float: right;width:125px ;height: 40px;line-height: 40px">
+                                    <input    style="background: white; width: 125px ;float: left ;line-height: 40px;height: 40px;" type="button" id="btnSendCode" value="发送验证码" onclick="sendMessage()" >
+                                </div>
+                            </div>
+
+                            <div class="form_text_ipt">
+								<input id="yzcode" name="yzcode" type="text" placeholder="请输入验证码">
+    						</div>
+
+							<div class="ececk_warning"><span>数据不能为空</span></div>
+
+{#                            <div class="form_text_ipt">#}
+{#								<input name="username" type="text" placeholder="用户名">#}
+{#							</div>#}
+{#							<div class="ececk_warning"><span>数据不能为空</span></div>#}
+
+							<div class="form_text_ipt">
+								<input name="password" type="password" placeholder="密码">
+							</div>
+							<div class="ececk_warning"><span>数据不能为空</span></div>
+							<div class="form_text_ipt">
+								<input name="repassword" type="password" placeholder="重复密码">
+							</div>
+							<div class="ececk_warning"><span>数据不能为空</span></div>
+
+
+
+							<div class="form_btn">
+								<button type="submit">注册</button>
+							</div>
+							<div class="form_reg_btn">
+								<span>已有帐号？</span><a href="/poem_app/index/">马上登录</a>
+							</div>
+						</form>
+{#						<div class="other_login">#}
+{#							<div class="left other_left">#}
+{#								<span>其它登录方式</span>#}
+{#							</div>#}
+{#							<div class="right other_right">#}
+{#								<a href="#">QQ登录</a>#}
+{#								<a href="#">微信登录</a>#}
+{#								<a href="#">微博登录</a>#}
+{#							</div>#}
+{#						</div>#}
+                        <br>
+                        <br>
+                        <br>
+					</div>
+				</div>
+			</div>
+		</div>
+        <script type="text/javascript">
+
+            var InterValObj; //timer变量，控制时间
+            var count = 60; //间隔函数，1秒执行
+            var curCount;//当前剩余秒数
+            function sendMessage() {
+                curCount = count;
+                //设置button效果，开始计时
+                $("#btnSendCode").attr("disabled", "true");
+                $("#btnSendCode").val(curCount + "秒");
+                InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+                //请求后台发送验证码
+            }
+            //timer处理函数
+            function SetRemainTime() {
+                if (curCount == 0) {
+                    window.clearInterval(InterValObj);//停止计时器
+                    $("#btnSendCode").removeAttr("disabled");//启用按钮
+                    $("#btnSendCode").val("重新发送验证码");
+                }
+                else {
+                    curCount--;
+                    $("#btnSendCode").val(curCount + "秒");
+                }
+            }
+		</script>
+
+        <!--向后台通过ajax发送手机号码数据-->
+        <script>
+            $('#btnSendCode').click(function () {
+                $.ajax({
+                    {#cache:false,#}
+                    type:"GET",
+                    url:"{% url 'poem_app:sendMsg' %}",
+                    data:{
+                       {#csrfmiddlewaretoken:$('[name="csrfmiddlewaretoken"]').val(),#}
+                       mobile:$("#valid_code").val()
+                    },
+                    async:true,
+                    success:function (data) {
+                        alert(data)
+                    }
+                })
+            })
+
+        </script>
+
+		<script type="text/javascript" src="{% static 'js/jquery.min.js' %}" ></script>
+    <script type="text/javascript" src="{% static 'js/common.js' %}" ></script>
+
+	</body>
+</html>

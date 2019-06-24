@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <title>诗歌生成</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}" ></script>
+
+<script>
+
+
+</script>
+
+
+</head>
+<body>
+
+
+<div style="width: 100%; ">
+<header>
+    <div class="menu">
+        <ul class="menubar">
+            <li class="" ><a href="#top">Home</a></li>
+            <li class="" ><a href="#randm">随机写诗</a></li>
+            <li class="" ><a href="#ct">藏头诗</a></li>
+            <li class="" ><a href="/poem_app/log/">历史纪录</a></li>
+            <li class="" ><a href="">&nbsp;&nbsp;</a></li>
+            <li class="" ><a href="/poem_app/index/" style="color: gainsboro">登出</a></li>
+        </ul>
+    </div>
+</header>
+    <!--顶部图-->
+    <div class="top"  id="top">
+        <div class="top_block">
+            <div class="top_poem">
+                <p>回首当年渐阑珊，墨苦研，心难安。</p>
+                <p>此生奢望，尽数成痴盼。</p>
+                <p>若得他年在相逢，舍浮华，终不换;</p>
+                <p>只道红尘为那堪，曲未终，人以散。</p>
+                <p>霎那芳华，醉眼听弦断。</p>
+                <p>镜花水月一梦空，花满楼，月半残。</p>
+            </div>
+        </div>
+
+
+        <div class="top_block">
+
+        </div>
+
+
+    </div>
+
+    <div class="top_bottom">
+        <p>欢迎使用诗歌在线自动生成</p>
+    </div>
+
+    <!--随即写诗-->
+    <div id="randm" class="content_div1">
+        <div class="content_div1_head">
+            <p>随机写诗</p>
+        </div>
+
+{#        <form action="{% url 'miaTest:get_rand_poem' %}" method="post">#}
+        {%  csrf_token %}
+        <div class="content_left" style="background-image:url({% static 'img/2.jpg' %})">
+            <div class="cue1">
+                <p>一键随机写诗</p>
+            </div>
+            <div class="butt_div1">
+                <button  onclick="getSceneId()" id="rand_poem_product" type="submit" class="butt"></button>
+            </div>
+        </div>
+{#        </form>#}
+        <div class="content_right" style="background-size:cover;background-image:url({% static 'img/xk.jpg'%})">
+            <div  id="link-box" class="poem_center" style="background-size:cover; background-image:url({% static 'img/2.gif'%})">
+                <ul id="rand_poem">
+{#                    <li>江南可采莲，莲叶何田田，鱼戏莲叶间。</li>#}
+{#                    <li>鱼戏莲叶东，鱼戏莲叶西，鱼戏莲叶南，鱼戏莲叶北。</li>#}
+{#                    <li>{{ rand_poem }}</li>#}
+{#                    {% for item in data%}#}
+{#                    <p style="color:#fff;">{{ item }}</p>#}
+{#                    {% endfor %}#}
+{#                    <li id="rand_poem" style="background:rgba(0, 0, 0, 0.3);color:#fff;"></li>#}
+
+                </ul>
+            </div>
+            <div onselectstart="return false" class="copy-link" style="height: 350px;width: 10%;float: left;">
+                <button style="background-color: #fff; margin-top: 200px;margin-left: 2px;height: 30px;width: 50px; border-radius:50%;">Copy</button>
+                <!--<div onselectstart="return false" class="copy-link">复制链接</div>-->
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <!--藏头诗-->
+    <div id="ct" class="content_div1">
+        <div class="content_div1_head">
+            <p>藏头诗</p>
+        </div>
+
+        <div class="content_left" style="background-image:url({% static 'img/2.jpg'%})">
+            <div class="input_div2">
+                <input  id="keyword" style="width: 220px" name="word" type="text" placeholder="请输入藏头字">
+            </div>
+            <div class="cue2">
+                <p style="margin-top: 28px">五言</p>
+                <p style="margin-top: 90px">七言</p>
+            </div>
+            <div class="butt_div2">
+
+                <button onclick="f_poem()" type="button" class="butt"></button>
+                <button onclick="s_poem()" type="button" class="butt" style="margin-top: 40px"></button>
+
+            </div>
+        </div>
+
+        <div class="content_right" style="background-size:cover;background-image:url({% static 'img/xk.jpg'%})">
+            <div  id="link-box2" class="poem_center " style="background-size:cover; background-image:url({% static 'img/2.gif'%})">
+                <ul id="f_poem" >
+
+                </ul>
+                <ul id="s_poem">
+
+                </ul>
+            </div>
+            <div onselectstart="return false" class="copy-link2" style="height: 350px;width: 10%;float: left;">
+                <button style="background-color: #fff; margin-top: 200px;margin-left: 2px;height: 30px;width: 50px; border-radius:50%;">Copy</button>
+                <!--<div onselectstart="return false" class="copy-link">复制链接</div>-->
+            </div>
+        </div>
+
+
+    </div>
+
+    <!--歌词+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+    <div id="randm" class="content_div1">
+        <div class="content_div1_head">
+            <p>随机写歌</p>
+        </div>
+
+{#        <form action="{% url 'poem_app:get_rand_poem' %}" method="post">#}
+        {%  csrf_token %}
+        <div class="content_left" style="background-image:url({% static 'img/sing1.jpg' %})">
+            <div class="cue1">
+                <p>一键随机写歌</p>
+            </div>
+            <div class="butt_div1">
+                <button  onclick="getsing()" id="rand_poem_product" type="submit" class="butt"></button>
+            </div>
+        </div>
+{#        </form>#}
+        <div class="content_right" style="background-size:cover;background-image:url({% static 'img/xk.jpg'%})">
+            <div  id="link-box3" class="poem_center " style="background-size:cover; background-image:url({% static 'img/sing2.jpg'%})">
+                <ul >
+{#                    <li style="background:rgba(0, 0, 0, 0.3);color:#fff;">江南可采莲，莲叶何田田，鱼戏莲叶间。</li>#}
+{#                    <li>鱼戏莲叶东，鱼戏莲叶西，鱼戏莲叶南，鱼戏莲叶北。</li>#}
+{#                    <li>{{ rand_poem }}</li>#}
+                    <li style="background:rgba(0, 0, 0, 0.3);color:#fff;" id="rand_sing"></li>
+
+
+                </ul>
+            </div>
+            <div onselectstart="return false" class="copy-link3" style="height: 350px;width: 10%;float: left;">
+                <button style="background-color: #fff; margin-top: 200px;margin-left: 2px;height: 30px;width: 50px; border-radius:50%;">Copy</button>
+                <!--<div onselectstart="return false" class="copy-link">复制链接</div>-->
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<!--底部-->
+<div class="bottom">
+    <p>云南大学 呈贡校区 软件学院 2019</p>
+</div>
+<div style="height: 60px">{{ error }}</div>
+
+</body>
+<script>
+{#随机写诗#}
+function getSceneId() {
+    $.getJSON("/poem_app/get_rand_poem/", function (ret) {
+            var text = "<br>";
+            var i;
+            for (i = 0; i < ret.data1.length; i++) {
+
+                text +='<li style="background:rgba(0, 0, 0, 0.3);color:#fff;">';
+                text +=ret.data1[i];
+                text +='</li>';
+              {#text += ret.data1[i] + "<br>";#}
+              console.log(ret.data1[i]);
+            }
+            $('#rand_poem').html(text);
+            {#console.log(ret.data1[0]);#}
+            {#console.log(ret.data1[1]);#}
+    })
+}
+
+function f_poem() {
+    $.ajax({
+        type: 'GET',
+        {#url: "/poem_app/f_poem/",#}
+        url:"{% url 'poem_app:f_poem' %}",
+        {#ar: bt=document.getElementById("keyword"),#}
+        data:{ keyword:$("#keyword").val()},
+        {#data: bt,#}
+        success: function (data) {
+
+            var text = "<br>";
+            var i;
+            for (i = 0; i < data.data1.length; i++) {
+                console.log(data.data1[i])
+                text +='<li style="background:rgba(0, 0, 0, 0.3);color:#fff;" >';
+                text +=data.data1[i];
+                text +='</li>';
+              {#text += ret.data1[i] + "<br>";#}
+              {#console.log(ret.data1[i]);#}
+            }
+            $('#s_poem').html(null);
+            $('#f_poem').html(text);
+            {#console.log(keyword),#}
+            {#console.log(ret.data1);#}
+        }
+    });
+
+}
+function s_poem() {
+    $.ajax({
+        type: 'GET',
+        {#url: "/poem_app/f_poem/",#}
+        url:"{% url 'poem_app:s_poem' %}",
+        {#ar: bt=document.getElementById("keyword"),#}
+        data:{ keyword:$("#keyword").val()},
+        {#data: bt,#}
+        success: function (data) {
+            var text = "<br>";
+            var i;
+            for (i = 0; i < data.data1.length; i++) {
+                console.log(data.data1[i])
+                text +='<li style="background:rgba(0, 0, 0, 0.3);color:#fff;" >';
+                text +=data.data1[i];
+                text +='</li>';
+              {#text += ret.data1[i] + "<br>";#}
+              {#console.log(ret.data1[i]);#}
+            }
+            $('#f_poem').html(null);
+            $('#s_poem').html(text);
+        }
+    });
+    {#$.getJSON("/poem_app/s_poem/", function (ret) {#}
+    {#        $('#f_poem').html(null);#}
+    {#        $('#s_poem').html(ret.data1);#}
+    {#        console.log(ret.data1);#}
+
+}
+
+{#随机写歌#}
+function getsing() {
+    $.getJSON("/poem_app/get_rand_sing/", function (ret) {
+            $('#rand_sing').html(ret.data1);
+            {#console.log(ret.data1);#}
+    })
+}
+
+</script>
+
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}" ></script>
+<!--第一个copy-->
+<script>
+    $('.copy-link').click(function(){
+        copyTxt('link-box');
+    });
+
+    // 复制功能
+    function copyTxt(con) {
+        const range = document.createRange();
+        range.selectNode(document.getElementById(con));
+        const selection = window.getSelection();
+        if(selection.rangeCount > 0) selection.removeAllRanges();
+        selection.addRange(range);
+        document.execCommand('copy');
+        alert("复制成功！");
+    }
+</script>
+<!--第2个copy-->
+<script>
+    $('.copy-link2').click(function(){
+        copyTxt('link-box2');
+    });
+
+    // 复制功能
+    function copyTxt(con) {
+        const range = document.createRange();
+        range.selectNode(document.getElementById(con));
+        const selection = window.getSelection();
+        if(selection.rangeCount > 0) selection.removeAllRanges();
+        selection.addRange(range);
+        document.execCommand('copy');
+        alert("复制成功！");
+    }
+</script>
+
+<!--第3个copy-->
+<script>
+    $('.copy-link3').click(function(){
+        copyTxt('link-box3');
+    });
+
+    // 复制功能
+    function copyTxt(con) {
+        const range = document.createRange();
+        range.selectNode(document.getElementById(con));
+        const selection = window.getSelection();
+        if(selection.rangeCount > 0) selection.removeAllRanges();
+        selection.addRange(range);
+        document.execCommand('copy');
+        alert("复制成功！");
+    }
+</script>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--{% load staticfiles %}-->
+<!--<head>-->
+    <!--<meta charset="UTF-8">-->
+    <!--<title>诗歌生成</title>-->
+    <!--<link rel="stylesheet" href="{% static 'css/main.css' %}"/>-->
+    <!--<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>-->
+    <!--{# <link href="css/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/> #}-->
+    <!--<script type="text/javascript" src="{% static 'js/jquery.min.js' %}" ></script>-->
+<!--<script>-->
+
+<!--</script>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div style="width: 100%; ">-->
+    <!--<header>-->
+        <!--<div class="menu">-->
+            <!--<ul class="menubar">-->
+                <!--<li class=""><a href="#top">Home</a></li>-->
+                <!--<li class=""><a href="#randm">随机写诗</a></li>-->
+                <!--<li class=""><a href="#ct">藏头诗</a></li>-->
+                <!--<li class="" ><a href="/poem_app/log/">历史纪录</a></li>-->
+                <!--<li class=""><a href="">&nbsp;&nbsp;</a></li>-->
+                <!--<li class=""><a href="/poem_app/index/" style="color: gainsboro">登出</a></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    <!--</header>-->
+    <!--&lt;!&ndash;顶部图&ndash;&gt;-->
+    <!--<div class="top" id="top">-->
+        <!--<div class="top_block">-->
+            <!--<div class="top_poem">-->
+                <!--<p>回首当年渐阑珊，墨苦研，心难安。</p>-->
+                <!--<p>此生奢望，尽数成痴盼。</p>-->
+                <!--<p>若得他年在相逢，舍浮华，终不换;</p>-->
+                <!--<p>只道红尘为那堪，曲未终，人以散。</p>-->
+                <!--<p>霎那芳华，醉眼听弦断。</p>-->
+                <!--<p>镜花水月一梦空，花满楼，月半残。</p>-->
+            <!--</div>-->
+        <!--</div>-->
+
+
+        <!--<div class="top_block">-->
+
+        <!--</div>-->
+
+
+    <!--</div>-->
+
+    <!--<div class="top_bottom">-->
+        <!--<p>欢迎使用诗歌在线自动生成</p>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash;随即写诗&ndash;&gt;-->
+    <!--<div id="randm" class="content_div1">-->
+        <!--<div class="content_div1_head">-->
+            <!--<p>随机写诗</p>-->
+        <!--</div>-->
+
+        <!--<div class="content_left" style="background-image:url({% static 'img/2.jpg' %})">-->
+            <!--<div class="cue1">-->
+                <!--<p>一键随机写诗</p>-->
+            <!--</div>-->
+            <!--<div class="butt_div1">-->
+                <!--<button id="rand_poem_product" type="button" class="butt"></button>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="content_right" style="background-size:cover;background-image:url({% static 'img/xk.jpg'%})">-->
+            <!--<div id="link-box" class="poem_center "-->
+                 <!--style="background-size:cover; background-image:url({% static 'img/2.gif'%})">-->
+                <!--<ul>-->
+                    <!--&lt;!&ndash;<li>江南可采莲，莲叶何田田，鱼戏莲叶间。</li>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<li>鱼戏莲叶东，鱼戏莲叶西，鱼戏莲叶南，鱼戏莲叶北。</li>&ndash;&gt;-->
+                    <!--<li>{{rand_poem}}</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--<div onselectstart="return false" class="copy-link" style="height: 350px;width: 10%;float: left;">-->
+                <!--<button style="background-color: #fff; margin-top: 200px;margin-left: 2px;height: 30px;width: 50px; border-radius:50%;">-->
+                    <!--Copy-->
+                <!--</button>-->
+                <!--&lt;!&ndash;<div onselectstart="return false" class="copy-link">复制链接</div>&ndash;&gt;-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <!--</div>-->
+
+
+    <!--&lt;!&ndash;藏头诗&ndash;&gt;-->
+    <!--<div id="ct" class="content_div1">-->
+        <!--<div class="content_div1_head">-->
+            <!--<p>藏头诗</p>-->
+        <!--</div>-->
+
+        <!--<div class="content_left" style="background-image:url({% static 'img/2.jpg'%})">-->
+            <!--<div class="input_div2">-->
+                <!--<input style="width: 220px" name="word" type="text" placeholder="请输入藏头字">-->
+            <!--</div>-->
+            <!--<div class="cue2">-->
+                <!--<p style="margin-top: 28px">五言</p>-->
+                <!--<p style="margin-top: 90px">七言</p>-->
+            <!--</div>-->
+            <!--<div class="butt_div2">-->
+                <!--<button type="button" class="butt"></button>-->
+                <!--<button type="button" class="butt" style="margin-top: 40px"></button>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="content_right" style="background-size:cover;background-image:url({% static 'img/xk.jpg'%})">-->
+            <!--<div id="link-box2" class="poem_center "-->
+                 <!--style="background-size:cover; background-image:url({% static 'img/2.gif'%})">-->
+                <!--<ul>-->
+                    <!--<li>江南可采莲，莲叶何田田，</li>-->
+                    <!--<li>鱼戏莲叶东，鱼戏莲叶西，</li>-->
+                    <!--<li>鱼戏莲叶间。</li>-->
+                    <!--<li>鱼戏莲叶南，鱼戏莲叶北。</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--<div onselectstart="return false" class="copy-link2" style="height: 350px;width: 10%;float: left;">-->
+                <!--<button style="background-color: #fff; margin-top: 200px;margin-left: 2px;height: 30px;width: 50px; border-radius:50%;">-->
+                    <!--Copy-->
+                <!--</button>-->
+                <!--&lt;!&ndash;<div onselectstart="return false" class="copy-link">复制链接</div>&ndash;&gt;-->
+            <!--</div>-->
+        <!--</div>-->
+
+
+    <!--</div>-->
+
+
+<!--</div>-->
+
+<!--&lt;!&ndash;底部&ndash;&gt;-->
+<!--<div class="bottom">-->
+    <!--<p>云南大学 呈贡校区 软件学院 2019</p>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>-->
+
+<!--<script>-->
+    <!--$('#rand_poem_product').click(function () {-->
+        <!--$.ajax({-->
+            <!--{#cache:false,#}-->
+            <!--type:"GET",-->
+            <!--url:"{% url 'poem_app:get_rand_poem' %}",-->
+            <!--data:{-->
+               <!--{#csrfmiddlewaretoken:$('[name="csrfmiddlewaretoken"]').val(),#}-->
+               <!--mobile:$("#valid_code").val()-->
+            <!--},-->
+            <!--async:true,-->
+            <!--success:function (data) {-->
+                <!--alert(data)-->
+            <!--}-->
+        <!--})-->
+    <!--})-->
+
+<!--</script>-->
+
+
+<!--&lt;!&ndash;第一个copy&ndash;&gt;-->
+<!--<script>-->
+    <!--$('.copy-link').click(function () {-->
+        <!--copyTxt('link-box');-->
+    <!--});-->
+
+    <!--// 复制功能-->
+    <!--function copyTxt(con) {-->
+        <!--const range = document.createRange();-->
+        <!--range.selectNode(document.getElementById(con));-->
+        <!--const selection = window.getSelection();-->
+        <!--if (selection.rangeCount > 0) selection.removeAllRanges();-->
+        <!--selection.addRange(range);-->
+        <!--document.execCommand('copy');-->
+        <!--alert("复制成功！");-->
+    <!--}-->
+<!--</script>-->
+<!--&lt;!&ndash;第2个copy&ndash;&gt;-->
+<!--<script>-->
+    <!--$('.copy-link2').click(function () {-->
+        <!--copyTxt('link-box2');-->
+    <!--});-->
+
+    <!--// 复制功能-->
+    <!--function copyTxt(con) {-->
+        <!--const range = document.createRange();-->
+        <!--range.selectNode(document.getElementById(con));-->
+        <!--const selection = window.getSelection();-->
+        <!--if (selection.rangeCount > 0) selection.removeAllRanges();-->
+        <!--selection.addRange(range);-->
+        <!--document.execCommand('copy');-->
+        <!--alert("复制成功！");-->
+    <!--}-->
+<!--</script>-->
+
+<!--</html>-->
+
