@@ -80,7 +80,7 @@ LSTM语言模型古诗生成，歌词生词，数据处理，网站
 
 - 歌词：
 
-<div align=center><img src="https://github.com/Yet-sun/poem_lyrics_generation/tree/master/poem_backend/poem_app/lyrics_generation/lstm_model/lstm_structure.png" width="50%" alt="基于lstm的概率语言模型结构"/></div>
+![基于lstm的概率语言模型结构](https://github.com/Yet-sun/poem_lyrics_generation/blob/master/poem_backend/poem_app/lyrics_generation/lstm_model/lstm_structure.png)
 
 本模型使用了2层LSTM，一层全连接层，全连接层后面接了一个softmax，也就是分类模型。
 
